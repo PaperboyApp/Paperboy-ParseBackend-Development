@@ -1,11 +1,17 @@
 {
     "applications": {
-        "Paperboy": {
+        "Paperboy Development": {
             "applicationId": "0gioPPsSyHjGFajF4CpCPpZijn5YvDymitWvGp9i", 
             "masterKey": "epsuwLlCuvKW7i3Ai3a1AbjFNZWsesfrB5M51Lhq"
         }, 
         "_default": {
-            "link": "Paperboy"
+            "link": "Paperboy Development"
+        }, 
+        "development": {
+            "link": "Paperboy Development"
         }
+    }, 
+    "global": {
+        "parseVersion": "1.3.3"
     }
 }
