@@ -1,0 +1,16 @@
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Sample App</title>
+  </head>
+  <body>
+    <h1>Hello World</h1>
+    <form method="POST" action="/publish">
+      <input type="text" name="headline" placeholder="Headline">
+      <input type="text" name="url" placeholder="URL">
+      <input type="hidden" name="publisher" value="<%= publisher %>">
+      <input type="submit">
+    </form>
+  </body>
+</html>

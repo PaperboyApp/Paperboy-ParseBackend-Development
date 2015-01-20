@@ -1,16 +1,16 @@
-require('cloud/app.js');
-var twilioClient = require('twilio')('ACb960362a91333ccc2a9865236929b3d6', '0ded54e15eda4b6f9afcdd22d7eb6aac');
+require('cloud/app.js')
+var twilioClient = require('twilio')('ACb960362a91333ccc2a9865236929b3d6', '0ded54e15eda4b6f9afcdd22d7eb6aac')
 // Use Parse.Cloud.define to define as many cloud functions as you want.
 // For example:
 function makeVerificationNumber() {
-  var possible = "0123456789";
-  var firstPossible = "123456789";
-  var text = firstPossible.charAt(Math.floor(Math.random() * firstPossible.length));
+  var possible = "0123456789"
+  var firstPossible = "123456789"
+  var text = firstPossible.charAt(Math.floor(Math.random() * firstPossible.length))
  
   for( var i = 0; i < 5; i++ )
-    text += possible.charAt(Math.floor(Math.random() * possible.length));
+    text += possible.charAt(Math.floor(Math.random() * possible.length))
 
-  return text;
+  return text
 }
 
 Parse.Cloud.define("sendSMS", function(request, response) {
@@ -20,19 +20,18 @@ Parse.Cloud.define("sendSMS", function(request, response) {
       body: "Hi, Your validation code is " + request.params.verificationNumber
     }, function(err, responseData) { 
       if (err) {
-        console.log(err);
+        console.log(err)
       } else { 
-        console.log(responseData.from); 
-        console.log(responseData.body);
+        console.log(responseData.from) 
+        console.log(responseData.body)
       }
     }
-  );
+  )
  
-  response.success("SendingSMS to " + request.params.phone);
-});
+  response.success("SendingSMS to " + request.params.phone)
+})
 
 Parse.Cloud.define("subscribe", function(request, response) {
-  console.log("Info: " + request.params.phone + " " + request.params.publisher);
   userPhoneNumber = request.params.phone
   publisherName = request.params.publisher
 
@@ -43,48 +42,90 @@ Parse.Cloud.define("subscribe", function(request, response) {
     success: function(user) {
       // Check if user Exists
       if (user) {
-        console.log("user exists")
         subscribeToPublisher(user, publisherName)
       } else {
         // Sign up user
-        console.log("user does not exist")
         user = createUser(userPhoneNumber, publisherName)
       }
 
       
     },
     error: function(error) {
-      console.log("error")
+
     }
   })
-});
+})
+
+Parse.Cloud.define("publish", function(request, response) {
+  // Retrieve parameters
+  headlineText = request.params.headline
+  url = request.params.url
+  publisherName = request.params.publisher
+
+  var query = new Parse.Query(Parse.User)
+  query.equalTo("username", publisherName)
+
+  query.first().then(function (publisher) {
+    Parse.Cloud.useMasterKey()
+
+    // Send Push
+    Parse.Push.send({
+      channels: [publisher.get("username")],
+      data: {
+        alert: publisher.get("username") + " - " + headlineText,
+        u: url
+      }
+    }, {
+      success: function() {
+        console.log("pushes sent")
+        response.success()
+      },
+      error: function(error) {
+        console.error(error)
+      }
+    })
+
+    // Create and save headline
+    var Headline = Parse.Object.extend("headline")
+    var headline = new Headline()
+    headline.set("publisher", publisher.get("username"))
+    headline.set("headlineText", headlineText)
+    headline.set("url", url)
+    headline.save().then(function () {
+      // Save headline to publisher
+      var relation = publisher.relation("headlines")
+      relation.add(headline)
+      publisher.save()
+    })
+  })
+})
 
 
 function createUser(userPhoneNumber, publisherName) {
   // Generate Verification Number
-  var verificationNumber = makeVerificationNumber();
+  var verificationNumber = makeVerificationNumber()
 
   // Set up user with phone as username and generated verification number as password
-  var user = new Parse.User();
-  user.set('username', userPhoneNumber);
-  user.set('password', verificationNumber);
-  user.set('verificationNumber', verificationNumber);
-  user.set('verified', false);
+  var user = new Parse.User()
+  user.set('username', userPhoneNumber)
+  user.set('password', verificationNumber)
+  user.set('verificationNumber', verificationNumber)
+  user.set('verified', false)
 
   // Sign up user
   user.signUp(null).then(function(user) {
-    var query = new Parse.Query(Parse.Role);
-    query.equalTo('name', 'User');
+    var query = new Parse.Query(Parse.Role)
+    query.equalTo('name', 'User')
     return query.first()
   }).then(function (role) {
-    role.getUsers().add(user);
-    role.save();
+    role.getUsers().add(user)
+    role.save()
     subscribeToPublisher(user, publisherName)
     Parse.Cloud.run("sendSMS", {
       phone: userPhoneNumber,
       verificationNumber: verificationNumber
     })
-  });
+  })
 }
 
 function subscribeToPublisher(user, publisherName) {
@@ -92,7 +133,7 @@ function subscribeToPublisher(user, publisherName) {
   query.equalTo("username", publisherName)
   query.first({
     success: function(publisher) {
-      Parse.Cloud.useMasterKey();
+      Parse.Cloud.useMasterKey()
       var subscription = user.relation("subscription")
       subscription.add(publisher)
       user.save()
