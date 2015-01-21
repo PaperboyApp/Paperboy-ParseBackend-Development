@@ -280,6 +280,18 @@ a, p, h1, h2, h3, h4, h5, h6 {
 	font-size: 0.75rem;
 }
 
+/*Terms*/
+
+.terms .large-12 {
+	padding-left: 8em;
+	padding-right: 8em;
+	padding-top: 4em;
+}
+
+.terms p {
+	font-family: "Avenir-Roman"!important;
+}
+
 
 
 
