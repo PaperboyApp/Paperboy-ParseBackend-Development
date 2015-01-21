@@ -1,0 +1,148 @@
+@media only screen and (min-width: 40.063em) and (max-width: 64em) { 
+	.hero .large-4 {
+		text-align: center;
+	}
+
+	.hero .large-7 {
+		margin-top: 3rem;
+		text-align: center;
+	}
+
+	.hero .button {
+		float: none; 
+		margin-right: 0; 
+		margin-top: 0.5rem;
+		margin-bottom: 4rem;
+	}
+
+	.how-it-works .row:nth-child(2) img {
+		 float: none; 
+	}
+
+	.how-it-works {
+		text-align: center;
+	}
+
+	.how-it-works .left {
+		float: none!important;
+	}
+
+	.how-it-works p {
+		margin: 0 7.5rem 0 7.5rem;
+	}
+
+	.how-it-works h2 {
+		margin-top: 1.875rem;
+	}
+
+	.how-it-works .row:nth-child(3) {
+		padding-top: 5rem;
+	}
+
+	.how-it-works .row:nth-child(4) {
+		padding-top: 5rem;
+	}
+
+	.app-store img {
+		 float: none; 
+	}
+
+	.app-store .large-2:nth-child(4) img {
+		 margin-top: 10px;
+	}
+
+	.app-store .large-2 p {
+		float: none;
+		margin-top: 0.2rem;
+		margin-left: 0;
+	}
+
+	.how-it-works .row:nth-child(2) .large-4 {
+		 padding-left: 0; 
+	}	
+}
+
+@media only screen and (max-width: 40em) {
+
+	.break {
+		display: none;
+	}
+
+	.hero .large-4 {
+		text-align: center;
+	}
+
+	.hero .large-7 {
+		margin-top: 3rem;
+		text-align: center;
+	}
+
+	.hero h1 {
+		font-size: 2.5rem;
+	}
+
+	.hero h2 {
+		font-size: 2rem;
+	}
+
+	.hero .button {
+		float: none; 
+		margin-right: 0; 
+		margin-top: 0.5rem;
+		margin-bottom: 4rem;
+	}
+
+	.hero {
+		margin-top: 2rem;
+	}
+
+	.how-it-works .row:nth-child(2) img {
+		 float: none; 
+	}
+
+	.how-it-works {
+		text-align: center;
+	}
+
+	.how-it-works .left {
+		float: none!important;
+	}
+
+	.how-it-works p {
+		margin: 0 1rem 0 1rem;
+	}
+
+	.how-it-works h2 {
+		margin-top: 1.875rem;
+	}
+
+	.how-it-works .row:nth-child(3) {
+		padding-top: 5rem;
+	}
+
+	.how-it-works .row:nth-child(4) {
+		padding-top: 5rem;
+	}
+
+	.top-bar-section ul {
+		width: 96%;
+	}
+
+	.app-store img {
+		 float: none; 
+	}
+
+	.app-store .large-2:nth-child(4) img {
+		 margin-top: 10px;
+	}
+
+	.app-store .large-2 p {
+		float: none;
+		margin-top: 0.2rem;
+		margin-left: 0;
+	}
+
+	.how-it-works .row:nth-child(2) .large-4 {
+		 padding-left: 0; 
+	}
+}

@@ -1,17 +1,148 @@
-
-<html>
+<!doctype html>
+<html class="no-js" lang="en">
   <head>
-    <title>My ParseApp site</title>
-    <style>
-    body { font-family: Helvetica, Arial, sans-serif; }
-    img { position: absolute; top:50%; left: 50%; margin-top: -120px; margin-left: -212.5px; }
-    h1 { font-size: 30px; margin: 0; }
-    p { margin: 40px 0; }
-    em { font-family: monospace; }
-    a { color: #5298fc; text-decoration: none; }
-    </style>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Paperboy</title>
+    <link rel="stylesheet" href="css/foundation.css" />
+    <link rel="stylesheet" href="css/fonts.css" />
+    <link rel="stylesheet" href="css/main.css" />
+    <link rel="stylesheet" href="css/responsive.css" />
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="/favicon.ico" type="image/x-icon">
+    <script src="js/vendor/modernizr.js"></script>
   </head>
   <body>
-    <img src="./Paperboy_logo.png">
+
+    <!-- Navigation bar -->
+    <div class="contain-to-grid sticky">
+      <nav class="top-bar" data-topbar role="navigation">
+        <ul class="title-area">
+          <li class="name">
+            <a href="/index.html"><img src="img/paperboy_logo.png"></a>
+          </li>
+          <li class="toggle-topbar menu-icon"><a href="#"><span></span></a></li>
+        </ul>
+        <section class ="top-bar-section">
+          <ul class="right">
+            <li><a href="/terms.html">TERMS</a></li>
+            <li><a href="/privacy.html">PRIVACY</a></li>
+            <li><a href="#">CONTACT US</a></li>
+            <li><a href="#">DOWNLOAD APP</a></li>
+            <li class="has-form"><a href="http://foundation.zurb.com/docs" class="button radius">PUBLISHER LOGIN</a></li>
+          </ul>
+        </section>
+      </nav>
+    </div>
+
+    <!-- Section 1 - Hero -->
+    <div class="row hero">
+      <div class="large-1 columns"></div>
+      <div class="large-4 columns">
+        <img src="img/iphone.png">
+      </div>
+      <div class="large-7 columns">
+        <h1>News headlines, delivered <span class="break"></br></span> via push.</h1>
+        <h2><span class="push">Push.</span><span class="swipe">Swipe.</span><span class="engage">Engage.</span></h2>
+        <p>Paperboy allows any news site to send push notification </br> headlines to it's audience. Each push swipe drives traffic </br> directly into your site.</p>
+        <a class="button radius" href="#">GET STARTED</a>
+      </div>
+    </div>
+    <!-- Section 2 - Colored rows -->
+    <div style="background-color: #27a1ff; height: 30px;"></div>
+    <div style="background-color: #52b4ff; height: 30px;"></div>
+    <div style="background-color: #7dc7ff; height: 30px;"></div>
+    <div style="background-color: #a9d9ff; height: 30px;"></div>
+    <div style="background-color: #bfe3ff; height: 30px;"></div>
+
+    <!-- Section 3 - How it works -->
+    <div class="how-it-works" style="background-color: #f2f9ff">
+      <div class="row">
+        <div class="large-12 columns">
+          <h1>How Paperboy works</h1>
+        </div>
+      </div>
+      <div class="row">
+        <div class="large-2 columns"></div>
+        <div class="large-3 columns">
+          <img class="imac" src="img/imac.png">
+        </div>
+        <div class="large-4 columns">
+          <h2>Subscribe</h2>
+          <p>On your site, start by subscribing your readers to the Paperboy app to build your audience.</p>
+        </div>
+        <div class="large-2 columns"></div>
+      </div>
+      <div class="row">
+        <div class="large-3 columns"></div>
+        <div class="large-5 columns right">
+          <img class="left idevices" src="img/idevices.png">
+        </div>
+        <div class="large-4 columns">
+          <h2>Send Push</h2>
+          <p>Choose your best headlines or breaking news and send a push notification to your Paperboy subscribers.</p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="large-3 columns"></div>
+        <div class="large-2 columns">
+          <img class="smile" src="img/smile.png">
+        </div>
+        <div class="large-4 columns">
+          <h2>Drive Traffic</h2>
+          <p>Each opened push is direct traffic to your site.</p>
+        </div>
+        <div class="large-3 columns"></div>
+      </div>
+      <div class="row">
+        <div class="large-12 columns">
+          <h2>Want to distribute with Paperboy?</h1>
+          <a class="button radius" href="#">CONTACT US</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Section 4 - Customers -->
+    <!-- <div class="row">
+      <div class="large-12 columns customers">
+        <h1>Our Customers</h1>
+        <ul class="small-block-grid-1 medium-block-grid-4 large-block-grid-4">
+          <li><a href="#"><img src="img/techcrunch_logo.png"></a></li>
+          <li><a href="#"><img src="img/mashable_logo.png"></a></li>
+          <li><a href="#"><img src="img/buzzfeed_logo.png"></a></li>
+          <li><a href="#"><img src="img/bloomberg_logo.png"></a></li>
+        </ul>
+      </div>
+    </div> -->
+    
+    <!-- Section 5 - App store -->
+    <div class="row app-store">
+      <div class="large-2 column"></div>
+      <div class="large-4 column">
+        <p>The Paperboy is currently delivering on:</p>
+      </div>
+      <div class="large-2 column">
+        <a href="#"><img class="ios-logo" src="img/appstore_logo.png"></a>
+      </div>
+      <div class="large-2 column">
+        <a href="#"><img class="google-play" src="img/googleplay_logo.png"></a>
+        <p>Coming soon</p>
+      </div>
+      <div class="large-2 column"></div>
+    </div>
+
+    <!-- Section 5 - Footer -->
+    <div class="row">
+      <div class="large-12 columns footer">
+        <p>2015 Paperboy, Inc. All Rights Reserved.</h3>
+      </div>
+    </div>
+    
+
+    <script src="js/vendor/jquery.js"></script>
+    <script src="js/foundation.min.js"></script>
+    <script>
+      $(document).foundation();
+    </script>
   </body>
 </html>
