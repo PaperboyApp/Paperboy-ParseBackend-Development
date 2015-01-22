@@ -59,7 +59,12 @@
 
 	.how-it-works .row:nth-child(2) .large-4 {
 		 padding-left: 0; 
-	}	
+	}
+
+	.terms .large-12 {
+		padding-left: 1.6em;
+		padding-right: 1.6em;
+	}
 }
 
 @media only screen and (max-width: 40em) {
@@ -144,5 +149,10 @@
 
 	.how-it-works .row:nth-child(2) .large-4 {
 		 padding-left: 0; 
+	}
+
+	.terms .large-12 {
+		padding-left: 2.6em;
+		padding-right: 2.6em;
 	}
 }
