@@ -292,6 +292,57 @@ a, p, h1, h2, h3, h4, h5, h6 {
 	font-family: "Avenir-Roman"!important;
 }
 
+/*Get started modal*/
+
+.get-started {
+	text-align: center;
+}
+
+.get-started h2 {
+	font-size: 2.3rem;
+	letter-spacing: -0.05rem;
+}
+
+.get-started p {
+	font-family: "Avenir-Roman"!important;
+	font-size: 1.3rem;
+}
+
+.get-started input {
+	box-shadow: none;
+	padding: 1.2rem 0 1.4rem 1rem;
+}
+
+.get-started ::-webkit-input-placeholder {
+   font-family: "Avenir-Roman";
+   font-size: 1rem;
+}
+
+.get-started :-moz-placeholder { /* Firefox 18- */
+   box-shadow: none;
+   font-family: "Avenir-Roman";
+}
+
+.get-started ::-moz-placeholder {  /* Firefox 19+ */
+   box-shadow: none;
+   font-family: "Avenir-Roman";
+}
+
+.get-started :-ms-input-placeholder {  
+   box-shadow: none;
+   font-family: "Avenir-Roman"; 
+}
+
+.get-started.reveal-modal {
+	padding-bottom: 0;
+}
+
+.get-started input[type="text"]:focus {
+	background: #ffffff;
+	box-shadow: 0 0 5px #54b5ff;
+	border-color: #cccccc;
+}
+
 
 
 
