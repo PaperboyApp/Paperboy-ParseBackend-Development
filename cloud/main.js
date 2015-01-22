@@ -13,24 +13,23 @@ function makeVerificationNumber() {
   return text
 }
 
+// Send SMS to phone and body in params
 Parse.Cloud.define("sendSMS", function(request, response) {
   twilioClient.sendSms({
       to: request.params.phone,
       from: "+15208348084",
-      body: "Hi, Your validation code is " + request.params.verificationNumber
-    }, function(err, responseData) { 
+      body: request.params.body
+    }, function(err, responseData) {
       if (err) {
         console.log(err)
       } else { 
-        console.log(responseData.from) 
-        console.log(responseData.body)
+        response.success()
       }
     }
   )
- 
-  response.success("SendingSMS to " + request.params.phone)
 })
 
+// Subscribe a user
 Parse.Cloud.define("subscribe", function(request, response) {
   userPhoneNumber = request.params.phone
   publisherName = request.params.publisher
@@ -40,18 +39,64 @@ Parse.Cloud.define("subscribe", function(request, response) {
   query.equalTo("username", userPhoneNumber)
   query.first({
     success: function(user) {
-      // Check if user Exists
       if (user) {
-        subscribeToPublisher(user, publisherName)
+        // If exists
+        if (publisherName) {
+          // Subscribe to publisher
+          subscribeToPublisher(user, publisherName)
+        } else {
+          if (user.get("verified")) {
+            response.success(user.get("verificationNumber"))
+          }
+        }
       } else {
-        // Sign up user
-        user = createUser(userPhoneNumber, publisherName)
+        // If not exists create
+        user = createUser(userPhoneNumber)
+        if (publisherName) {
+          // Subscribe to publisher send download link
+          subscribeToPublisher(user, publisherName)
+          Parse.Cloud.run("sendSMS", {
+            phone: userPhoneNumber,
+            body: "Download link"
+          })
+        } else {
+          // Send verification number
+          Parse.Cloud.run("sendSMS", {
+            phone: userPhoneNumber,
+            body: "Your code: " + user.get('verificationNumber')
+          })
+        }
       }
-
-      
+      response.success()
     },
     error: function(error) {
 
+    }
+  })
+})
+
+// Get verification number
+Parse.Cloud.define("getVerificationNumber", function(request, response) {
+  Parse.Cloud.useMasterKey()
+  phone = request.params.phone
+
+  // Look for user
+  var query = new Parse.Query(Parse.User)
+  query.equalTo("username", phone)
+
+  query.first({
+    success: function(user) {
+      if (!user) {
+        user = createUser(phone)
+      }
+      Parse.Cloud.run("sendSMS", {
+        phone: phone,
+        body: "Your code: " + user.get('verificationNumber')
+      })
+      response.success()
+    },
+    error: function(error) {
+      response.error(error)
     }
   })
 })
@@ -81,7 +126,7 @@ Parse.Cloud.define("publish", function(request, response) {
         response.success()
       },
       error: function(error) {
-        console.error(error)
+        response.error(error)
       }
     })
 
@@ -100,8 +145,8 @@ Parse.Cloud.define("publish", function(request, response) {
   })
 })
 
-
-function createUser(userPhoneNumber, publisherName) {
+// Create user
+function createUser(userPhoneNumber) {
   // Generate Verification Number
   var verificationNumber = makeVerificationNumber()
 
@@ -114,18 +159,17 @@ function createUser(userPhoneNumber, publisherName) {
 
   // Sign up user
   user.signUp(null).then(function(user) {
+    // Get user inside User role
     var query = new Parse.Query(Parse.Role)
     query.equalTo('name', 'User')
     return query.first()
   }).then(function (role) {
+    Parse.Cloud.useMasterKey()
     role.getUsers().add(user)
     role.save()
-    subscribeToPublisher(user, publisherName)
-    Parse.Cloud.run("sendSMS", {
-      phone: userPhoneNumber,
-      verificationNumber: verificationNumber
-    })
   })
+
+  return user
 }
 
 function subscribeToPublisher(user, publisherName) {
