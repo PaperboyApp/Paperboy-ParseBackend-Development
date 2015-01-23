@@ -1,3 +1,20 @@
+@media only screen and (max-width: 50em) { 
+  .hide-terms-privacy {
+    display: none;
+  }
+
+  .show-terms-privacy {
+    display: inline-block;
+    text-decoration: none;
+  }
+
+  .show-terms-privacy a {
+    color: #232930;
+    font-size: 0.8rem;
+  }
+}
+
+
 @media only screen and (min-width: 40.063em) and (max-width: 64em) { 
 	.hero .large-4 {
 		text-align: center;
