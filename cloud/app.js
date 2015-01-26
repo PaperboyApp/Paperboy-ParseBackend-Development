@@ -24,13 +24,12 @@ app.get('/publish', function(req, res) {
   res.render('publish', { publisher: publisher })
 })
 
-app.post('/publish', function(req, res) {
-  Parse.Cloud.run('publish', { publisher: req.body.publisher, headline: req.body.headline, url: req.body.url })
+app.get('/reqalvaro', function(req, res) {
+  Parse.Cloud.run('getVerificationNumber', { phone: "+56989225608"})
 })
 
-// Support
-app.get('/support', function(req, res) {
-  res.send("<a href='mailto:alvaro@getpaperboy.com'>Contact Us</a>")
+app.post('/publish', function(req, res) {
+  Parse.Cloud.run('publish', { publisher: req.body.publisher, headline: req.body.headline, url: req.body.url })
 })
  
 // Attach the Express app to Cloud Code.

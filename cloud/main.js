@@ -84,25 +84,23 @@ Parse.Cloud.define("getVerificationNumber", function(request, response) {
   var query = new Parse.Query(Parse.User)
   query.equalTo("username", phone)
 
-  query.first({
-    success: function(user) {
-      if (!user) {
-        user = createUser(phone)
-      }
-      Parse.Cloud.run("sendSMS", {
-        phone: phone,
-        body: "Your code: " + user.get('verificationNumber')
-      })
-      response.success()
-    },
-    error: function(error) {
-      response.error(error)
+  query.first().then(function (user) {
+    if (!user) {
+      user = createUser(phone)
     }
+    Parse.Cloud.run("sendSMS", {
+      phone: phone,
+      body: "Your code: " + user.get('verificationNumber')
+    })
+
+    return user
   })
+
 })
 
 Parse.Cloud.define("publish", function(request, response) {
   // Retrieve parameters
+  Parse.Cloud.useMasterKey()
   headlineText = request.params.headline
   url = request.params.url
   publisherName = request.params.publisher
@@ -145,6 +143,8 @@ Parse.Cloud.define("publish", function(request, response) {
   })
 })
 
+
+
 // Create user
 function createUser(userPhoneNumber) {
   // Generate Verification Number
@@ -158,15 +158,19 @@ function createUser(userPhoneNumber) {
   user.set('verified', false)
 
   // Sign up user
-  user.signUp(null).then(function(user) {
-    // Get user inside User role
-    var query = new Parse.Query(Parse.Role)
-    query.equalTo('name', 'User')
-    return query.first()
-  }).then(function (role) {
-    Parse.Cloud.useMasterKey()
-    role.getUsers().add(user)
-    role.save()
+  user.signUp(null).then(function (user) {
+    var roleQuery = new Parse.Query(Parse.Role)
+    console.log("role query")
+    roleQuery.get("bZVhujLFAN", {
+      success: function (role) {
+        console.log("saving to role " + role)
+        role.getUsers().add(user)
+        role.save()
+      },
+      error: function (error) {
+        console.log(error)
+      }
+    })
   })
 
   return user
