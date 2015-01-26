@@ -1,0 +1,79 @@
+<!doctype html>
+<html class="no-js" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Paperboy Demo</title>
+    <link rel="stylesheet" href="css/foundation.css" />
+    <link rel="stylesheet" href="css/fonts.css" />
+    <link rel="stylesheet" href="css/main.css" />
+    <link rel="stylesheet" href="css/responsive.css" />
+    <link rel="stylesheet" href="libraries/phone-input/css/intlTelInput.css">
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="/favicon.ico" type="image/x-icon">
+    <script src="js/vendor/modernizr.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script src="libraries/phone-input/js/intlTelInput.min.js"></script>
+  </head>
+  <body>
+    <div class"row">
+      <div class="large-12 columns">
+        <img src="img/techcrunch.jpg">
+        <a href="#" data-reveal-id="myModal">Click Me For A Modal</a>
+        <div id="myModal" class="reveal-modal medium get-started" data-reveal>
+          <h2>Get push notifications with Techcrunch top headlines</h2>
+          <!-- <p>Enter your email address and we'll be in touch shortly.</p> -->
+          <div class="row">
+            <div class="large-3 columns"></div>
+            <div class="large-6 columns">
+            </div>
+            <div class="large-3 columns"></div>
+          </div>
+          <label>
+            <input type="tel" id="mobile-number">
+            <span id="valid-msg" class="hide">✓ Valid</span>
+            <span id="error-msg" class="hide">Invalid number</span>
+          </label>
+          <script>
+            var telInput = $("#mobile-number"),
+              errorMsg = $("#error-msg"),
+              validMsg = $("#valid-msg");
+
+            // initialise plugin
+            telInput.intlTelInput({
+              utilsScript: "./libphonenumber/build/utils.js",
+              defaultCountry: "auto"
+            });
+
+            // on blur: validate
+            telInput.blur(function() {
+              if ($.trim(telInput.val())) {
+                if (telInput.intlTelInput("isValidNumber")) {
+                  validMsg.removeClass("hide");
+                } else {
+                  telInput.addClass("error");
+                  errorMsg.removeClass("hide");
+                  validMsg.addClass("hide");
+                }
+              }
+            });
+
+            // on keydown: reset
+            telInput.keydown(function() {
+              telInput.removeClass("error");
+              errorMsg.addClass("hide");
+              validMsg.addClass("hide");
+            });
+          </script>
+          <a class="button radius" href="#">Subscribe</a>
+          <a class="close-reveal-modal">&#215;</a>
+        </div>
+      </div>
+    </div>
+    <script src="js/vendor/jquery.js"></script>
+    <script src="js/foundation.min.js"></script>
+    <script>
+      $(document).foundation();
+    </script>
+  </body>
+</html>
