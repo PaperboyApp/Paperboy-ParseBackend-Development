@@ -100,6 +100,7 @@ Parse.Cloud.define("getVerificationNumber", function(request, response) {
 
 Parse.Cloud.define("publish", function(request, response) {
   // Retrieve parameters
+  Parse.Cloud.useMasterKey()
   headlineText = request.params.headline
   url = request.params.url
   publisherName = request.params.publisher
