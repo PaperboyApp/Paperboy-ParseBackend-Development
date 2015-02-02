@@ -20,7 +20,7 @@ a, p, h1, h2, h3, h4, h5, h6 {
 }
 
 .get-started h2 {
-	font-size: 2.3rem;
+	font-size: 2rem;
 	letter-spacing: -0.05rem;
 }
 
@@ -31,7 +31,7 @@ a, p, h1, h2, h3, h4, h5, h6 {
 
 .get-started input {
 	box-shadow: none;
-	padding: 1.2rem 0 1.4rem 1rem;
+	padding: 1.6rem 0 1.7rem 1rem;
 }
 
 .get-started ::-webkit-input-placeholder {
@@ -69,7 +69,26 @@ a, p, h1, h2, h3, h4, h5, h6 {
 }
 
 .show-terms-privacy {
-	display: none
+	display: none;
+}
+
+#show-overlay {
+	display: none;
+}
+
+.button {
+	margin-top: 1rem;
+	background-color: #089E00;
+}
+
+.intl-tel-input input, .intl-tel-input input[type=tel] {
+	padding-left: 100px;
+}
+
+.intl-tel-input .selected-flag {
+	background-color: #ededed;
+	width: 60px;
+	padding: 0 0 0 17px;
 }
 
 
