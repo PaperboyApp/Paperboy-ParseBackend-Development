@@ -16,6 +16,7 @@ app.get('/subscribe', function(req, res) {
 
 app.post('/subscribe', function(req, res) {
   Parse.Cloud.run('subscribe', { phone: req.body.phone, publisher: req.body.publisher } )
+  res.render('subscribe', {publisher: req.body.publisher})
 })
 
 // Publish Hooks

@@ -67,7 +67,6 @@ Parse.Cloud.define("subscribe", function(request, response) {
           })
         }
       }
-      response.success()
     },
     error: function(error) {
 
@@ -159,17 +158,16 @@ function createUser(userPhoneNumber) {
 
   // Sign up user
   user.signUp(null).then(function (user) {
+    Parse.Cloud.useMasterKey()
+    user.setACL(new Parse.ACL(user))
+    user.save()
     var roleQuery = new Parse.Query(Parse.Role)
     console.log("role query")
-    roleQuery.get("bZVhujLFAN", {
-      success: function (role) {
-        console.log("saving to role " + role)
-        role.getUsers().add(user)
-        role.save()
-      },
-      error: function (error) {
-        console.log(error)
-      }
+    roleQuery.equalTo("name", "User")
+    roleQuery.first().then(function (role) {
+      console.log("saving to role " + role)
+      role.getUsers().add(user)
+      role.save()
     })
   })
 
@@ -177,17 +175,15 @@ function createUser(userPhoneNumber) {
 }
 
 function subscribeToPublisher(user, publisherName) {
+  Parse.Cloud.useMasterKey()
+  console.log("subscribing to " + publisherName)
   var query = new Parse.Query(Parse.User)
   query.equalTo("username", publisherName)
-  query.first({
-    success: function(publisher) {
-      Parse.Cloud.useMasterKey()
-      var subscription = user.relation("subscription")
-      subscription.add(publisher)
-      user.save()
-    },
-    error: function() {
-
-    }
+  query.first().then(function (publisher) {
+    console.log("adding subscription")
+    Parse.Cloud.useMasterKey()
+    var subscription = user.relation("subscription")
+    subscription.add(publisher)
+    user.save()
   })
 }
