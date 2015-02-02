@@ -116,6 +116,7 @@ Parse.Cloud.define("publish", function(request, response) {
       data: {
         alert: publisher.get("username") + " - " + headlineText,
         u: url
+        p: publisher.get("username")
       }
     }, {
       success: function() {
