@@ -25,10 +25,6 @@ app.get('/publish', function(req, res) {
   res.render('publish', { publisher: publisher })
 })
 
-app.get('/reqalvaro', function(req, res) {
-  Parse.Cloud.run('getVerificationNumber', { phone: "+56989225608"})
-})
-
 app.post('/publish', function(req, res) {
   Parse.Cloud.run('publish', { publisher: req.body.publisher, headline: req.body.headline, url: req.body.url })
 })

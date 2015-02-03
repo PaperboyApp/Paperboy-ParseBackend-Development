@@ -1,9 +1,5 @@
 {
     "applications": {
-        "Paperboy": {
-            "applicationId": "8eaj7n8uEDFKLMrP7WXjoEUxRlIKvtD5Cmp3H6X1", 
-            "masterKey": "fZpzGEEXBdsm6r5Edd1WRoIx9RS4M2FKdGMoXrh9"
-        }, 
         "Paperboy Development": {
             "applicationId": "0gioPPsSyHjGFajF4CpCPpZijn5YvDymitWvGp9i", 
             "masterKey": "epsuwLlCuvKW7i3Ai3a1AbjFNZWsesfrB5M51Lhq"
