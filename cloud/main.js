@@ -115,8 +115,7 @@ Parse.Cloud.define("publish", function(request, response) {
       channels: [publisher.get("username")],
       data: {
         alert: publisher.get("username") + " - " + headlineText,
-        u: url,
-        p: publisher.get("username")
+        u: url
       }
     }, {
       success: function() {
