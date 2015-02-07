@@ -1,0 +1,19 @@
+<!doctype html>
+<html>
+<head class="no-js" lang="en">
+  <% include ./partials/head %>
+</head>
+<body>
+  <% include ./partials/header %>
+  <%if (layout == 'home') { %>
+    <% include home %>
+  <% } else if (layout == 'privacy' ) { %>
+    <% include privacy %>
+  <% } else if (layout == 'terms') { %>
+    <% include terms %>
+  <% } %>
+</body>
+<footer>
+  <% include ./partials/footer %>
+</footer>
+</html>

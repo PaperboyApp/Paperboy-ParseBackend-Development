@@ -8,6 +8,19 @@ app.set('views', 'cloud/views')  // Specify the folder to find templates
 app.set('view engine', 'ejs')    // Set the template engine
 app.use(express.bodyParser())    // Middleware for reading request body
 
+// Home Hook
+app.get('/', function(req, res) {
+  res.render('index', { layout: 'home' })
+})
+
+app.get('/privacy', function(req, res) {
+  res.render('index', { layout: 'privacy' })
+})
+
+app.get('/terms', function(req, res) {
+  res.render('index', { layout: 'terms' })
+})
+
 // Subscribe Hooks
 app.get('/subscribe', function(req, res) {
   publisher = req.query.publisher

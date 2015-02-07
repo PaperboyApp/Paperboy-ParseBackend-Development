@@ -1,7 +1,6 @@
 require('cloud/app.js')
-var twilioClient = require('twilio')('ACb960362a91333ccc2a9865236929b3d6', '0ded54e15eda4b6f9afcdd22d7eb6aac')
-// Use Parse.Cloud.define to define as many cloud functions as you want.
-// For example:
+var twilioClient = require('twilio')('ACb46ab11abd0573c4304d638fa641e301', '21588f510e17d38180c4329d3ebe9252')
+
 function makeVerificationNumber() {
   var possible = "0123456789"
   var firstPossible = "123456789"
@@ -17,7 +16,7 @@ function makeVerificationNumber() {
 Parse.Cloud.define("sendSMS", function(request, response) {
   twilioClient.sendSms({
       to: request.params.phone,
-      from: "+15208348084",
+      from: "+18122024619",
       body: request.params.body
     }, function(err, responseData) {
       if (err) {
@@ -51,15 +50,16 @@ Parse.Cloud.define("subscribe", function(request, response) {
         }
       } else {
         // If not exists create
-        user = createUser(userPhoneNumber)
         if (publisherName) {
+          console.log("Create and subscribe")
+          user = createAndSubscribeUser(userPhoneNumber, publisherName)
           // Subscribe to publisher send download link
-          subscribeToPublisher(user, publisherName)
           Parse.Cloud.run("sendSMS", {
             phone: userPhoneNumber,
-            body: "Download link"
+            body: "Click on the link below to get the latest " + publisherName + " headlines via the Paperboy app. \n" + "http://bit.ly/getpaperboy"
           })
         } else {
+          user = createAndSubscribeUser(userPhoneNumber)
           // Send verification number
           Parse.Cloud.run("sendSMS", {
             phone: userPhoneNumber,
@@ -69,7 +69,7 @@ Parse.Cloud.define("subscribe", function(request, response) {
       }
     },
     error: function(error) {
-
+      console.log(error)
     }
   })
 })
@@ -85,7 +85,7 @@ Parse.Cloud.define("getVerificationNumber", function(request, response) {
 
   query.first().then(function (user) {
     if (!user) {
-      user = createUser(phone)
+      user = createAndSubscribeUser(phone)
     }
     Parse.Cloud.run("sendSMS", {
       phone: phone,
@@ -145,7 +145,8 @@ Parse.Cloud.define("publish", function(request, response) {
 
 
 // Create user
-function createUser(userPhoneNumber) {
+function createAndSubscribeUser(userPhoneNumber, publisherName) {
+  Parse.Cloud.useMasterKey()
   // Generate Verification Number
   var verificationNumber = makeVerificationNumber()
 
@@ -155,12 +156,17 @@ function createUser(userPhoneNumber) {
   user.set('password', verificationNumber)
   user.set('verificationNumber', verificationNumber)
   user.set('verified', false)
-
+  console.log('before sign up')
   // Sign up user
   user.signUp(null).then(function (user) {
+    console.log('after signup')
     Parse.Cloud.useMasterKey()
     user.setACL(new Parse.ACL(user))
-    user.save()
+    if (publisherName) {
+      subscribeToPublisher(user, publisherName)
+    } else {
+      user.save()
+    }
     var roleQuery = new Parse.Query(Parse.Role)
     console.log("role query")
     roleQuery.equalTo("name", "User")
@@ -176,11 +182,9 @@ function createUser(userPhoneNumber) {
 
 function subscribeToPublisher(user, publisherName) {
   Parse.Cloud.useMasterKey()
-  console.log("subscribing to " + publisherName)
   var query = new Parse.Query(Parse.User)
   query.equalTo("username", publisherName)
   query.first().then(function (publisher) {
-    console.log("adding subscription")
     Parse.Cloud.useMasterKey()
     var subscription = user.relation("subscription")
     subscription.add(publisher)
