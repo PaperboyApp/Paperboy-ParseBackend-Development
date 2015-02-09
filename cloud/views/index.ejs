@@ -4,13 +4,18 @@
   <% include ./partials/head %>
 </head>
 <body>
-  <% include ./partials/header %>
-  <%if (layout == 'home') { %>
+  <% if (layout != 'demo') { %>
+    <% include ./partials/header %>
+  <% } %>
+
+  <% if (layout == 'home') { %>
     <% include home %>
   <% } else if (layout == 'privacy' ) { %>
     <% include privacy %>
   <% } else if (layout == 'terms') { %>
     <% include terms %>
+  <% } else if (layout == 'demo') { %>
+    <% include  demo %>
   <% } %>
 </body>
 <footer>

@@ -21,6 +21,10 @@ app.get('/terms', function(req, res) {
   res.render('index', { layout: 'terms' })
 })
 
+app.get('/demo/:publisher', function(req, res) {
+  res.render('index', { layout: 'demo', publisher: req.params.publisher })
+})
+
 // Subscribe Hooks
 app.get('/subscribe', function(req, res) {
   publisher = req.query.publisher

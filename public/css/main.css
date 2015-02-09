@@ -351,26 +351,21 @@ a, p, h1, h2, h3, h4, h5, h6 {
 	display: none
 }
 
+#show-overlay {
+	display: none;
+}
 
+#myModal .button {
+	margin-top: 1rem;
+	background-color: #089E00;
+}
 
+.intl-tel-input input, .intl-tel-input input[type=tel] {
+	padding-left: 100px;
+}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+.intl-tel-input .selected-flag {
+	background-color: #ededed;
+	width: 60px;
+	padding: 0 0 0 17px;
+}
